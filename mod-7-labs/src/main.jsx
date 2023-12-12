@@ -5,6 +5,7 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    {/* All other routing components need this to work */}
+      <App />
   </React.StrictMode>,
 )
