@@ -81,7 +81,6 @@
 
 //LAB 2.2
 import React, { useReducer } from 'react';
-
 import useBitcoinRates from '../hooks/useBitcoinRates';
 
 const currencies = ['USD', 'AUD', 'NZD', 'GBP', 'EUR', 'SGD'];
