@@ -2,8 +2,8 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import BitcoinRates from './components/BitcoinRates'
-import Emoji from './components/Emoji.jsx';
 import './App.css'
+import Emoji from './components/Emoji'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -30,12 +30,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <h3>LAB 1 & 2</h3>
+      <h3>LAB 1, 2 & 3</h3>
       <BitcoinRates />
-      <h5>END OF LAB 1 & 2</h5>
-      <h3>LAB 3</h3>
       <Emoji />
-      <br />
     </>
   )
 }
