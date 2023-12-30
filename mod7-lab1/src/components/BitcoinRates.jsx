@@ -1,52 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const currencies = ['USD', 'AUD', 'NZD', 'GBP', 'EUR', 'SGD'];
 
 function BitcoinRates() {
+
     const [currency, setCurrency] = useState(currencies[0]);
-    const [exchangeRate, setExchangeRate] = useState(0);
-
-    const handleCurrencyChange = (e) => {
-        setCurrency(e.target.value);
-    };
-
-    const options = currencies.map(curr => <option value={curr} key={curr}>{curr}</option>);
+    const [btcPrice, setBtcPrice] = useState(0);
 
     useEffect(() => {
-        let didCancel = false;
+        let ignore = false;
 
-        const fetchExchangeRate = async () => {
-            try {
-                const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currency}`);
-                const data = await response.json();
-                const rate = data.bitcoin[currency.toLowerCase()];
-
-                if (!didCancel) {
-                    setExchangeRate(rate);
-                }
-            } catch (error) {
-                console.error('An error occurred:', error);
-            }
-        };
-
-        fetchExchangeRate();
+        fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currency}`)
+            .then(response => response.json())
+            .then(json => {
+                if (!ignore) setBtcPrice(json.bitcoin[currency.toLowerCase()]);
+            });
 
         return () => {
-            didCancel = true;
-        };
+            ignore = true;
+        };            
     }, [currency]);
+
+    const options = currencies.map(curr => <option value={curr} key={curr}>{curr}</option>)
 
     return (
         <div className="BitcoinRates componentBox">
             <h3>Bitcoin Exchange Rate</h3>
             <label>Choose currency:
-                <select value={currency} onChange={handleCurrencyChange}>
+                <select value={currency} onChange={e => setCurrency(e.target.value)}>
                     {options}
                 </select>
             </label>
-            {exchangeRate && <p>1 BTC = {exchangeRate} {currency}</p>}
+            <div>1 BTC is worth {btcPrice} {currency}</div>
         </div>
     )
+
 }
 
 export default BitcoinRates;
