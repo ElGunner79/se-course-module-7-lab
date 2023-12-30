@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import BitcoinRates from './components/BitcoinRates'
+//LAB 2
+//import BitcoinRates from './components/BitcoinRates'
+//LAB 2 EXTENSION
+import BitcoinRatesExtension from './components/BitcoinRatesExtension'
 import './App.css'
 
 function App() {
@@ -29,7 +32,10 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <BitcoinRates />
+      {/* LAB 2 */}
+      {/* <BitcoinRates /> */}
+      <p>LAB 2 EXTENSION</p>
+      <BitcoinRatesExtension />
     </>
   )
 }

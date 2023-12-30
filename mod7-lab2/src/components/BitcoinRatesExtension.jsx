@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import { useData } from "../hooks/useData";
+import { useState } from "react";
+import { useDataReducer } from "../hooks/useDataReducer";
 
 const currencies = ['USD', 'AUD', 'NZD', 'GBP', 'EUR', 'SGD'];
 
 function BitcoinRates() {
 
     const [currency, setCurrency] = useState(currencies[0]);
-    const btcResponse = useData(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currency}`);
-    const btcPrice = btcResponse ? btcResponse.bitcoin[currency.toLowerCase()] : 0;
+    const btcResponse = useDataReducer(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currency}`);
+    const btcPrice = !btcResponse.loading && btcResponse.data ? btcResponse.data.bitcoin[currency.toLowerCase()] : 0;
 
     const options = currencies.map(curr => <option value={curr} key={curr}>{curr}</option>)
 
@@ -19,7 +19,9 @@ function BitcoinRates() {
                     {options}
                 </select>
             </label>
-            <div>1 BTC is worth {btcPrice} {currency}</div>
+            { btcResponse.loading ? <div>Please wait ...</div>
+            : <div>1 BTC is worth {btcPrice} {currency}</div> }
+            <div>{btcResponse.error}</div>
         </div>
     )
 
